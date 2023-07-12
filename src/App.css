@@ -2,37 +2,293 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+th {
+  padding-left: 200px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+td {
+  padding-left: 200px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+
+/* ----------- containers-------------------------------------------- */
+.container-signup {
+  background-color: rgba(1, 93, 118, 1);
+}
+
+.container-signin {
+  background-color: rgb(18, 67, 141);
+  margin-top: 20px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+  height: 800px;
+}
+
+.container-signup {
+  background-color: rgba(1, 93, 118, 1);
+  margin-top: 20px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+  height: 800px;
+}
+
+.nav-container {
+  background-color: rgba(0, 100, 177, 1);
+  width: 100%;
+  height: 100px;
+}
+
+.container-body {
+  background-color: rgba(0, 89, 203, 1);
+  width: 100%;
+  height: 800px;
+}
+
+.container-footer {
+  background-color: rgba(25, 21, 190, 1);
+  width: 100%;
+  height: 200px;
+  color: aliceblue;
+}
+
+.container-add-room {
+  background-color: rgba(0, 89, 203, 1);
+  background-image: url('./images/image2.jpg');
+  height: 800px;
+  width: 100%;
+	align-items: center;
+	justify-content: center;
+}
+
+.container-view-rooms {
+  background-color: rgba(0, 89, 203, 1);
+  background-image: url('./images/image2.jpg');
+  height: 800px;
+  width: 100%;
+	align-items: center;
+	justify-content: center;
+}
+
+
+.container-heroes {
+  width: 100%;
+  height: 440px;
+  background-color: aliceblue;
+}
+
+.container-about_us {
+  background-color: rgba(0, 89, 203, 1);
+  height: 600px;
+  width: 100%;
   display: flex;
   flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.container-info {
+  background-color: #43A5BE;
+  height: 1000px;
+  width: 100%;
+	align-items: center;
+	justify-content: center;
+}
+
+.form-add-room{
+  width: 40%;
+  height: auto;
+  background-color: rgba(1, 93, 118, 1);
+}
+
+/* -------------Images & icons-------------------------------------------- */
+.logo-image{
+  width: 100px;
+  height: auto;
+  border-radius: 10%;
+  background-color: rgba(0, 89, 203, 1);
+  transform: scale(1.1);
+  opacity: 0.8;
+  transition: transform 0.3s ease-in-out;
+  transform: rotate(360deg);
+  border: 2px solid rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.home-icon {
+  padding-left: 40px;
+  width: 50px;
+  height: auto;
+  background-color: transparent;
+  transform: scale(1.1);
+  opacity: 0.8;
+  transition: transform 0.3s ease-in-out;
+  transform: rotate(360deg);
+}
+
+.logout-icon {
+  width: 30px;
+  height: 30px;
+  background-color: transparent;
+  transform: scale(1.1);
+  opacity: 0.8;
+  transition: transform 0.3s ease-in-out;
+  transform: rotate(360deg);
+  padding-left: 12%;
+}
+
+.img-home {
+  width: 100%;
+  height: 800px;
+  background-color: transparent;
+  transform: scale(1.1);
+  opacity: 0.8;
+  transition: transform 0.3s ease-in-out;
+  transform: rotate(360deg);
+}
+
+.img-heroes {
+  padding: 20px;
+  width: 30%;
+  height: 400px;
+  border-radius: 40px;
+  background-color: transparent;
+  transform: scale(1.1);
+  opacity: 0.8;
+  transition: transform 0.3s ease-in-out;
+  transform: rotate(360deg);
+  border: 2px solid rgba(200, 206, 206, 0.747);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* ------------ buttons or links  ---------------------------------------------*/
+.btn-1 {
+  width: 80px;
+  height: 40px;
+  background-color: rgba(255, 255, 255, 1);
+  border-radius: 20px;
+}
+
+.btn-2 {
+  width: 40px;
+  height: 20px;
+  background-color: rgba(255, 255, 255, 1);
+  border-radius: 20px;
+}
+
+.btn-signin {
+  background-color: rgb(29, 26, 161);
+  border-radius: 20px;
+  height: 40px;
+  width: 20%;
+  color: aliceblue;
+}
+
+.btn-3 {
+  background-color: rgba(81, 97, 109, 1);
+  border-radius: 20px;
+  height: 40px;
+  width: 20%;
+  color: aliceblue;
+}
+
+.btn-add-room {
+  background-color: rgba(25, 21, 190, 1);
+  border-radius: 10px;
+  height: 40px;
+  width: 30%;
+  color: aliceblue;
+}
+
+.btn-about-us {
+  background-color: rgba(25, 21, 190, 1);
+  border-radius: 10px;
+  height: 40px;
+  width: 30%;
+  color: aliceblue;
+  border: 2px solid rgba(200, 206, 206, 0.747);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.link-signup {
+  color: black;
+  font-style: italic;
+}
+
+.nav-items {
+  padding-left: 7%; 
+  color: black;
+}
+
+.btn-edit {
+  width: 100%;
+  height: auto;
+  background-color: #43A5BE;
+}
+
+.btn-cancel {
+  width: 100%;
+  height: auto;
+  background-color: #253342;
+  color: aliceblue;
+}
+
+.btn-save {
+  width: 100%;
+  height: auto;
+  background-color: #53BDA5;
+}
+
+
+
+/* -----------inputs----------------------------------------------------- */
+.input-login {
+  width: 40%;
+  height: 40px;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.input-signup {
+  width: 40%;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.input-add-room {
+  width: 90%;
+  height: 40px;
+  border-radius: 10px;
+  align-items: center;
+  justify-content: center;
+  background-color: aliceblue;
+}
+
+.select-add-room {
+  width: 90%;
+  height: 40px;
+  border-radius: 10px;
+  align-items: center;
+  justify-content: center;
+  background-color: aliceblue;
+}
+
+.input-information {
+  width: 70%;
+  height: 200px;
+  border: 2px solid;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* -------------tables---------------------------------------------------- */
+.table-view-rooms {
+  background-color: rgba(1, 93, 118, 1);
+  width: 80%;
+  height: auto;
 }
