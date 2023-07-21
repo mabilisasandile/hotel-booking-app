@@ -2,13 +2,13 @@
 import React from "react";
 import '../App.css';
 import { useState, useEffect } from "react";
-import NavBar from "./NavBar";
+import NavBarClient from "./NavBarClient";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { collection, addDoc, getDocs } from "firebase/firestore";
 import { db } from "../config/firebase";
 import { async } from "@firebase/util";
 import aboutImage from '../images/details-5.jpeg';
-import Footer from "./Footer";
+import FooterClient from "./FooterClient";
 
 //Import the 'Swal.fire' function to display alerts
 import Swal from "sweetalert2";
@@ -86,7 +86,7 @@ const AboutUs = () => {
 
     return (
         <div>
-            <NavBar />
+            <NavBarClient />
             <div className="container-about_us">
                 <h1>Who we are?</h1>
                 <img src={aboutImage} alt="banner" className="img-about" />
@@ -101,26 +101,9 @@ const AboutUs = () => {
 
                 <button className="btn-about-us" onClick={getAbousUsInfo}>More information </button>
                 <p>{moreInfo.about_us_info}</p>
-                <>
-                    {isMoreInfo && (
-                        <>
-                            <label>Enter about us info:</label> <br></br>
-                            <textarea
-                                type="text"
-                                className="input-information"
-                                placeholder="About us info"
-                                // value={getAbousUsInfo}
-                                onChange={(event) => setAboutUsInfo(event.target.value)} />
-                            <br></br>
-                            <br></br>
-                            <button className="btn-about-us" onClick={handleAddAboutUsInfo}>Save added information</button>
-                        </>
-                    )}
-
-                </>
-
+                
             </div>
-            <Footer />
+            <FooterClient />
         </div>
 
     );

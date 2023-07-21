@@ -1,24 +1,22 @@
 import React from "react";
 import '../App.css';
-import NavBar from "./NavBar";
-import Heroes from "./Heroes";
-import Footer from "./Footer";
+import NavBarClient from "./NavBarClient";
+import HeroesClient from "./HeroesClient";
 import homeImage from '../images/home-image.jpg';
-import Map from "./Map";
+import MapClient from './MapClient';
+import FooterClient from './FooterClient';
 
-const Home = () => {
+const HomeClient = () => {
 
     return (
         <div>
-            <div>
-                <NavBar />
-                <Heroes />
-            </div>
+            <NavBarClient />
+            <HeroesClient />
             <div className="container-body">
-                <table>
+            <table>
                     <tr>
                         <td>
-                            <Map />
+                            <MapClient />
                         </td>
                         <td>
                             <img src={homeImage} alt="banner" className="img-home" />
@@ -27,11 +25,11 @@ const Home = () => {
                 </table>
             </div>
             <div>
-                <Footer />
+                <FooterClient />
             </div>
         </div>
+
     );
 }
 
-export default Home;
-
+export default HomeClient;

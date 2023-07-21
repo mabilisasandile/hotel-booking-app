@@ -19,7 +19,6 @@ const BasicInfo =()=>{
     //const [hotel_map, setHotelMap] = useState('');
     //const [social_media, setSocialMedia] = useState('');
 
-
     const handleAddBasicInfo = (async (e) => {
         e.preventDefault()
 

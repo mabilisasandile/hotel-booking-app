@@ -28,7 +28,8 @@ const NavBar = () => {
                 </span>
                     <Link to="/Rooms" className='nav-items'><b>View Rooms</b></Link>
                     <Link to="/NewRoom" className='nav-items'><b>Add New Room</b></Link>
-                    <Link to="/Specials" className='nav-items'><b>Special Offers</b></Link>
+                    <Link to="/Bookings" className='nav-items'><b>Bookings</b></Link>
+                    <Link to="/Services" className='nav-items'><b>Special Offers</b></Link>
                     <Link to="/AboutUs" className='nav-items'><b>About Us</b></Link>
                     <Link to="/BasicInfo" className='nav-items'><b>Information</b></Link>
 

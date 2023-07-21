@@ -4,7 +4,7 @@ import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
 import {getAuth} from 'firebase/auth';
 import { getStorage } from 'firebase/storage';
-import firebase from 'firebase/compat/app';
+import { ref } from "firebase/storage";
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import 'firebase/compat/storage';
@@ -20,15 +20,13 @@ const firebaseConfig = {
   measurementId: "G-BQ0GQ7PQK5"
 };
 
-// Initialize Firebase
+// Initialize and export
+// export const firebase = firebase.initializeApp(firebaseConfig);
 export const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+export const analytics = getAnalytics(app);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
 export const storage = getStorage(app);
+export const storageRef = ref(storage);
 
-//const storage = firebase.storage();
-//export const firestore = firebase.firestore();
-
-//export { analytics, firestore };
 export default app;

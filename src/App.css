@@ -3,18 +3,24 @@
 }
 
 th {
-  padding-left: 200px;
+  padding-left: 50px;
+  display: flex;
 }
 
 td {
-  padding-left: 200px;
+  padding-left: 50px;
+  padding-bottom: 70px;
+}
+
+h1, h2, h3, h4 {
+  display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
 }
 
 
 /* ----------- containers-------------------------------------------- */
-.container-signup {
-  background-color: rgba(1, 93, 118, 1);
-}
 
 .container-signin {
   background-color: rgb(18, 67, 141);
@@ -56,23 +62,63 @@ td {
 }
 
 .container-add-room {
-  background-color: rgba(0, 89, 203, 1);
+  background-color: rgb(138, 194, 243);
   background-image: url('./images/image2.jpg');
-  height: 800px;
-  width: 100%;
+  margin-top: 20px;
+	display: flex;
+	flex-direction: column;
 	align-items: center;
 	justify-content: center;
+  padding-top: 20px;
+  height: auto;
+  width: 100%;
+}
+
+.form-add-room {
+  background-color: rgb(138, 194, 243);
+  width: 50%;
+}
+
+.container-edit-room {
+  background-color: rgb(138, 194, 243);
+  margin-top: 20px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+  padding-top: 20px;
+  height: auto;
+  width: 100%;
+}
+
+.container-edit-booking {
+  background-color: rgb(138, 194, 243);
+  margin-top: 20px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+  padding-top: 20px;
+  height: auto;
+  width: 100%;
 }
 
 .container-view-rooms {
   background-color: rgba(0, 89, 203, 1);
   background-image: url('./images/image2.jpg');
-  height: 800px;
+  height: auto;
   width: 100%;
 	align-items: center;
 	justify-content: center;
 }
 
+.container-services {
+  background-color: rgb(100, 151, 228);
+  height: auto;
+  width: 100%;
+	align-items: center;
+	justify-content: center;
+}
 
 .container-heroes {
   width: 100%;
@@ -81,13 +127,13 @@ td {
 }
 
 .container-about_us {
-  background-color: rgba(0, 89, 203, 1);
-  height: 600px;
+  background-color: rgb(100, 151, 228);
+  height: 1500px;
   width: 100%;
   display: flex;
   flex-direction: column;
-	align-items: center;
-	justify-content: center;
+	/* align-items: center;
+	justify-content: center; */
 }
 
 .container-info {
@@ -98,10 +144,16 @@ td {
 	justify-content: center;
 }
 
-.form-add-room{
-  width: 40%;
+.container-book, container-edit-room {
+  background-color: rgb(138, 194, 243);
+  margin-top: 20px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+  padding-top: 20px;
   height: auto;
-  background-color: rgba(1, 93, 118, 1);
+  width: 100%;
 }
 
 /* -------------Images & icons-------------------------------------------- */
@@ -150,6 +202,17 @@ td {
   transform: rotate(360deg);
 }
 
+.img-about {
+  width: 80%;
+  height: 300px;
+  padding-left: 10%;
+  background-color: transparent;
+  transform: scale(1.1);
+  opacity: 0.8;
+  transition: transform 0.3s ease-in-out;
+  transform: rotate(360deg);
+}
+
 .img-heroes {
   padding: 20px;
   width: 30%;
@@ -162,6 +225,63 @@ td {
   transform: rotate(360deg);
   border: 2px solid rgba(200, 206, 206, 0.747);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.img-rooms {
+  padding: 20px;
+  width: 600px;
+  height: 400px;
+  border-radius: 40px;
+  background-color: transparent;
+  transform: scale(1.1);
+  opacity: 0.8;
+  transition: transform 0.3s ease-in-out;
+  transform: rotate(360deg);
+}
+
+.img-new-room {
+  padding: 20px;
+  width: 700px;
+  height: 300px;
+  border-radius: 40px;
+  background-color: transparent;
+  transform: scale(1.1);
+  opacity: 0.8;
+  transition: transform 0.3s ease-in-out;
+  transform: rotate(360deg);
+}
+
+.img-offer {
+  padding: 20px;
+  width: 400px;
+  height: 200px;
+  border-radius: 30px;
+  background-color: transparent;
+  transform: scale(1.1);
+  opacity: 0.8;
+  transition: transform 0.3s ease-in-out;
+  transform: rotate(360deg); 
+}
+
+.img-edit-room {
+  width: 700px;
+  height: 500px;
+  background-color: transparent;
+  transform: scale(1.1);
+  opacity: 0.8;
+  transition: transform 0.3s ease-in-out;
+  transform: rotate(360deg);
+}
+
+.img-book-form {
+  width: 60%;
+  height: 200px;
+  padding-left: 10%;
+  background-color: transparent;
+  transform: scale(1.1);
+  opacity: 0.8;
+  transition: transform 0.3s ease-in-out;
+  transform: rotate(360deg);
 }
 
 /* ------------ buttons or links  ---------------------------------------------*/
@@ -196,18 +316,16 @@ td {
 }
 
 .btn-add-room {
-  background-color: rgba(25, 21, 190, 1);
+  background-color: #11ce95;
   border-radius: 10px;
   height: 40px;
   width: 30%;
-  color: aliceblue;
 }
 
 .btn-about-us {
-  background-color: rgba(25, 21, 190, 1);
-  border-radius: 10px;
-  height: 40px;
-  width: 30%;
+  background-color: #11ce95;
+  height: 20px;
+  width: 50%;
   color: aliceblue;
   border: 2px solid rgba(200, 206, 206, 0.747);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
@@ -219,21 +337,42 @@ td {
 }
 
 .nav-items {
-  padding-left: 7%; 
+  padding-left: 5%; 
   color: black;
 }
 
+.return-back-link {
+  padding-right: 40%; 
+  color: navy;
+  text-align: left;
+  justify-content: left;
+}
+
 .btn-edit {
-  width: 100%;
+  width: 60%;
   height: auto;
   background-color: #43A5BE;
 }
 
-.btn-cancel {
-  width: 100%;
+.btn-delete {
+  width: 60%;
   height: auto;
   background-color: #253342;
   color: aliceblue;
+}
+
+.btn-view-rooms {
+  width: 30%;
+  height: auto;
+  background-color: #253342;
+  color: aliceblue; 
+}
+
+.btn-filtered-rooms {
+  width: 15%;
+  height: 30px;
+  background-color: #253342;
+  color: aliceblue; 
 }
 
 .btn-save {
@@ -242,7 +381,33 @@ td {
   background-color: #53BDA5;
 }
 
+.btn-check-room {
+  width: 80%;
+  height: auto;
+  background-color: #43A5BE;
+}
 
+.btn-book-room {
+  width: 40%;
+  height: 40px;
+  background-color: #11ce95;
+  border-radius: 10px;
+  color: aliceblue;
+}
+
+.btn-update-room{
+  width: 200px;
+  height: 40px;
+  background-color: #11ce95;
+  border-radius: 10px;
+  color: aliceblue;
+}
+
+.btn-search {
+  width: 30px;
+  height: 30px;
+  border-radius: 5px;
+}
 
 /* -----------inputs----------------------------------------------------- */
 .input-login {
@@ -268,10 +433,28 @@ td {
   background-color: aliceblue;
 }
 
+.input-edit-room {
+  width: 500px;
+  height: 40px;
+  border-radius: 10px;
+  align-items: center;
+  justify-content: center;
+  background-color: aliceblue;
+}
+
 .select-add-room {
   width: 90%;
   height: 40px;
   border-radius: 10px;
+  align-items: center;
+  justify-content: center;
+  background-color: aliceblue;
+}
+
+.select-book-room {
+  width: 90%;
+  height: 30px;
+  border-radius: 5px;
   align-items: center;
   justify-content: center;
   background-color: aliceblue;
@@ -285,10 +468,91 @@ td {
   justify-content: center;
 }
 
+.input1-book-room{
+  width: 140px;
+  height: 30px;
+  border-radius: 5px;
+  margin-right: 20px;
+  align-items: center;
+  justify-content: center;
+  background-color: aliceblue;
+}
+
+.input2-book-room {
+  width: 150px;
+  height: 30px;
+  border-radius: 5px;
+  margin-right: 20px;
+  align-items: center;
+  justify-content: center;
+  background-color: aliceblue;
+}
+
+.input3-book-room {
+  width: 120px;
+  height: 30px;
+  border-radius: 5px;
+  margin-left: 10px;
+  padding-left: 10px;
+  align-items: center;
+  justify-content: center;
+  background-color: aliceblue;
+}
+
+.input-book-requests {
+  width: 90%;
+  height: 100px;
+  border: 2px solid;
+  align-items: center;
+  justify-content: center;
+}
+
+.input-search {
+  width: 20%;
+  height: 30px;
+  border-radius: 5px;
+}
 
 /* -------------tables---------------------------------------------------- */
 .table-view-rooms {
-  background-color: rgba(1, 93, 118, 1);
+  background-color: rgb(100, 151, 228);
   width: 80%;
   height: auto;
+}
+
+.table-view-bookings {
+  background-color: rgb(100, 151, 228);
+  width: 80%;
+  height: auto;
+}
+
+/* --------------------------Maps----------------------------------------------------- */
+.map-style {
+  height: 100%;
+  width: 100%;
+  zoom: 80%;
+  position:relative;
+  text-align:right;
+}
+
+.map-frame {
+  width: 100%;
+  height: 100%;
+}
+
+.gmap_canvas {
+  overflow:hidden;
+  /* background:none!important; */
+  height:510px;
+  width:770px;
+  border: 0px; 
+  scroll-behavior: auto; 
+}
+
+/* -------------------paragraph & more----------------------------------------------- */
+
+.p-about-us {
+  align-items: center;
+  padding-left: 10%;
+  font-family: Arial, Helvetica, sans-serif;
 }
