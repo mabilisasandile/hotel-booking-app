@@ -17,6 +17,7 @@ const RoomEdit = (room) => {
 
     const id = roomData.id;
     const [room_type, setRoomType] = useState(roomData.room_type);
+    const [room_description, setRoomDescription] = useState(roomData.room_description);
     const [no_of_beds, setNoOfBeds] = useState(roomData.no_of_beds);
     const [price, setRoomPrice] = useState(roomData.price);
     const [total_occupants, setTotalOccupants] = useState(roomData.total_occupants);
@@ -40,6 +41,7 @@ const RoomEdit = (room) => {
             const room = {
                 id,
                 room_type,
+                room_description,
                 no_of_beds,
                 price,
                 total_occupants,
@@ -49,10 +51,6 @@ const RoomEdit = (room) => {
             await setDoc(doc(db, "rooms", id), {
                 ...room
             });
-    
-            // setRooms(rooms);
-            // setIsEditing(false);
-            // getRooms();
     
             //Success message popup
             Swal.fire({
@@ -79,7 +77,7 @@ const RoomEdit = (room) => {
     return (
         <div className="container-edit-room">
             <h1>Update room info!</h1>
-                <Link to="/Home" className='return-back-link'><b>Return Home</b></Link>
+                <Link to="/rooms" className='return-back-link'><b>Return Back</b></Link>
                 <div>
                     <img src={imageURL} className="img-edit-room" alt="banner" />
                 </div>
@@ -107,10 +105,22 @@ const RoomEdit = (room) => {
                 </div>
                 <br></br>
                 <div>
+                <select className="select-add-room" value={room_description} onChange={(e) => setRoomDescription(e.target.value)}>
+                    <option value="">Select room description</option>
+                    <option value="Standard Room (1 to 2 People)">Double - Standard Room (1 to 2 People)</option>
+                    <option value="Private Room (1 to 3">Triple - Private Room (1 to 3)</option>
+                    <option value="Family Room (1 to 4)">Quad - Family Room (1 to 4)</option>
+                    <option value="Mix Dorm Room (6 People)">Mix - Mix Dorm Room (6 People)</option>
+                    <option value="Female Dorm Room (6 people)">Female - Dorm Room (6 people)</option>
+                    <option value="Male Dorm Room (6 people)" >King - Male Dorm Room (6 people)</option>
+                </select>
+                </div>
+                <br></br>
+                <div>
                     <label htmlFor="no_of_beds">No. of Beds:</label>
                     <br></br>
                     <input
-                        type="text"
+                        type="number"
                         className="input-edit-room"
                         value={no_of_beds}
                         onChange={(e) => setNoOfBeds(e.target.value)}
@@ -121,7 +131,7 @@ const RoomEdit = (room) => {
                     <label htmlFor="price">Price:</label>
                     <br></br>
                     <input
-                        type="text"
+                        type="number"
                         className="input-edit-room"
                         value={price}
                         onChange={(e) => setRoomPrice(e.target.value)}

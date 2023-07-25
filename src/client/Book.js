@@ -75,13 +75,11 @@ const Book = ({ room }) => {
                 <Link to="/ViewRooms" className='return-back-link'><b>Return Back</b></Link>
                 <h2>Hotel Booking</h2> <br />
                 <h4>Experience something new every moment</h4>
+                <img src={image_url} className="img-book-form" alt="banner" />
+                <br></br>
+                <br></br>
                 <table>
                     <tbody>
-                        <tr>
-                            <td>
-                                <img src={image_url} className="img-book-form" alt="banner" />
-                            </td>
-                        </tr>
                         <tr>
                             <td>
                                 <label>Room ID.</label>
@@ -133,7 +131,7 @@ const Book = ({ room }) => {
                                 <label>Room Type</label>
                             </td>
                             <td>
-                            <input
+                                <input
                                     type="text"
                                     className="input2-book-room"
                                     placeholder="Room Type"
@@ -147,7 +145,7 @@ const Book = ({ room }) => {
                                 <label>Room Description</label>
                             </td>
                             <td>
-                            <input
+                                <input
                                     type="text"
                                     className="input2-book-room"
                                     placeholder="Room Description"
@@ -225,7 +223,7 @@ const Book = ({ room }) => {
                         <tr>
                             <td> </td>
                             <td>
-                                <button className="btn-book-room" onClick={handleBooking}>Submit</button>
+                                <button className="btn-book-room" onClick={handleBooking}>Confirm Booking</button>
                             </td>
                         </tr>
                     </tbody>

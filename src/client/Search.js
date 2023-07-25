@@ -15,6 +15,7 @@ const Search = () => {
 
     const navigate = useNavigate();
 
+    //Search data specified from the search input
     const fetchData = async () => {
 
         const data = await getDocs(query(collection(db, "rooms")
@@ -28,10 +29,10 @@ const Search = () => {
 
     //View room availability
     const handleAvailability = id => {
-        const [room] = searchResults.filter(room => room.id === id);
+        const [room_data] = searchResults.filter(room => room.id === id);
 
         setIsChecking(true);
-        navigate('/roomAvailability');
+        navigate('/roomavailability', { state: { room_data: room_data}});
     };
 
     //Book the room
@@ -46,53 +47,59 @@ const Search = () => {
 
     return (
         <div>
-            <input
-                type="text"
-                className="input-search"
-                placeholder="Search room type..."
-                value={searchInput}
-                onChange={(e) => setSearchInput(e.target.value)}
-            />
-            <button type="button" className="btn-search" onClick={fetchData}>
-                <FontAwesomeIcon icon={faMagnifyingGlass} />
-            </button>
 
-            <tbody>
-                {searchResults.map((room) => (
-                    <tr key={room.id}>
-                        <td>
-                            <img src={room.imageURL} className="img-rooms" alt="banner" />
-                        </td>
-                        <td>
-                            <p>Type: {room.room_type}</p>
-                            <p>Description: {room.room_description}</p>
+            <table>
+                <tr>
+                    <td>
+                        <input
+                            type="text"
+                            className="input-search"
+                            placeholder="Search room type..."
+                            value={searchInput}
+                            onChange={(e) => setSearchInput(e.target.value)}
+                        />
+                        <button type="button" className="btn-search" onClick={fetchData}>
+                            <FontAwesomeIcon icon={faMagnifyingGlass} />
+                        </button>
+                    </td>
+                </tr>
+                <tbody>
+                    {searchResults.map((room) => (
+                        <tr key={room.id}>
+                            <td>
+                                <img src={room.imageURL} className="img-rooms" alt="banner" />
+                            </td>
+                            <td>
+                                <p>Type: {room.room_type}</p>
+                                <p>Description: {room.room_description}</p>
 
-                            <FontAwesomeIcon icon={faBed} />
-                            <> {room.no_of_beds}</>
+                                <FontAwesomeIcon icon={faBed} />
+                                <> {room.no_of_beds}</>
 
-                            <br></br>
-                            <br></br>
+                                <br></br>
+                                <br></br>
 
-                            <FontAwesomeIcon icon={faMoneyCheck} />
-                            <> R{room.price}</>
+                                <FontAwesomeIcon icon={faMoneyCheck} />
+                                <> R{room.price}</>
 
-                            <br></br>
-                            <br></br>
+                                <br></br>
+                                <br></br>
 
-                            <FontAwesomeIcon icon={faPeopleGroup} />
-                            <> {room.total_occupants}</>
+                                <FontAwesomeIcon icon={faPeopleGroup} />
+                                <> {room.total_occupants}</>
 
-                            <br></br>
-                            <br></br>
+                                <br></br>
+                                <br></br>
 
-                            <>
-                                <button className="btn-check-room" onClick={() => handleAvailability(room.id)}>Check Room Availability</button> <br />
-                            </> <br />
-                            <button className="btn-check-room" onClick={() => handleBooking(room.id, room.value)}>Book</button> <br />
-                        </td>
-                    </tr>
-                ))}
-            </tbody>
+                                <>
+                                    <button className="btn-check-room" onClick={() => handleAvailability(room.id)}>Check Room Availability</button> <br />
+                                </> <br />
+                                <button className="btn-check-room" onClick={() => handleBooking(room.id, room.value)}>Book</button> <br />
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
         </div>
     );
 }

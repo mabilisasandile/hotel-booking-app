@@ -43,7 +43,7 @@ const Rooms = () => {
 
     
 
-    //Filter rooms according to price range
+    //Filter rooms with price range
     const handleFilteredData = async () => {
 
         try {
@@ -67,6 +67,15 @@ const Rooms = () => {
         } catch (error) {
 
             console.log("Failed to fetch filtered rooms: ", error);
+
+            //Error popup
+            Swal.fire({
+                icon: 'error',
+                title: 'Error!',
+                text: 'Failed to fetch filtered rooms!',
+                showConfirmButton: false,
+                timer: 3000,
+            });
         }
     };
 
@@ -114,7 +123,7 @@ const Rooms = () => {
                     value={amountEntered}
                     onChange={(e) => setAmountEntered(e.target.value)}
                 />
-                <button className="btn-filtered-rooms" onClick={handleFilteredData}>View filtered rooms</button>
+                <button className="btn-filtered-rooms" onClick={handleFilteredData}>View</button>
                 <br></br>
                 <br></br>
                 <button className="btn-view-rooms" onClick={getRooms}>View All Rooms</button>

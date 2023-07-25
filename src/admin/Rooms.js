@@ -114,6 +114,7 @@ const Rooms = () => {
                             <td>
                                 <p>Room ID: {room.id}</p>
                                 <p>Type: {room.room_type}</p>
+                                <p>Room Description: {room.room_description}</p>
                                 <p>No. of beds: {room.no_of_beds}</p>
                                 <p>Price: R{room.price}</p>
                                 <p>Max occupants: {room.total_occupants}</p>
