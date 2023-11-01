@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@fortawesome/fontawesome-svg-core": "^6.4.0",
     "@fortawesome/free-regular-svg-icons": "^6.4.0",
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
@@ -10,9 +11,14 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "bootstrap": "^5.3.2",
     "firebase": "^9.23.0",
+    "jquery": "^3.7.1",
     "leaflet": "^1.9.4",
+    "mdb-react-ui-kit": "^6.3.0",
+    "popper.js": "^1.16.1",
     "react": "^18.2.0",
+    "react-bootstrap": "^2.9.1",
     "react-dom": "^18.2.0",
     "react-firebase-hooks": "^5.1.1",
     "react-leaflet": "^4.2.1",
@@ -20,6 +26,7 @@
     "react-scripts": "5.0.1",
     "storage": "^0.2.0",
     "sweetalert2": "^11.7.12",
+    "swiper": "^11.0.3",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

@@ -1,20 +1,18 @@
 import React, { useState, useEffect } from "react";
-import '../App.css';
+import "../App.css";
 import NavBarClient from "./NavBarClient";
 import FooterClient from "./FooterClient";
 import { useNavigate } from "react-router-dom";
 import { collection, query, getDocs, where } from "firebase/firestore";
-import { db } from "../config/firebase";
+import { db, auth } from "../config/firebase";
 import Search from "./Search";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBed, faMoneyCheck, faPeopleGroup } from "@fortawesome/free-solid-svg-icons";
-
-//Import the 'Swal.fire' function to display alerts
+import { faBed, faMoneyCheck, faPeopleGroup, faFilter } from "@fortawesome/free-solid-svg-icons";
+import { Card, Button } from "react-bootstrap";
+import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
 import Swal from "sweetalert2";
 
-
 const Rooms = () => {
-
     const navigate = useNavigate();
 
     const [rooms, setRooms] = useState([]);
@@ -24,6 +22,14 @@ const Rooms = () => {
     const [data, setData] = useState([]);
     const [amountEntered, setAmountEntered] = useState(0);
     const [isFiltered, setIsFiltered] = useState(false);
+
+    const user = auth.currentUser;
+
+
+    useEffect(() => {
+        getRooms();
+        console.log("User data:", user);
+    }, []);
 
     const getRooms = async () => {
         try {
@@ -41,14 +47,10 @@ const Rooms = () => {
         }
     };
 
-    
-
-    //Filter rooms with price range
+    // Filter rooms with price range
     const handleFilteredData = async () => {
-
         try {
-            const queryData = query(collection(db, 'rooms'),
-                where('price', '<=', parseInt(amountEntered)));
+            const queryData = query(collection(db, "rooms"), where("price", "<=", parseInt(amountEntered)));
 
             const querySnapshot = await getDocs(queryData);
             let items = [];
@@ -63,153 +65,165 @@ const Rooms = () => {
             setIsFiltered(true);
 
             console.log("View filtered data: ", items);
-
         } catch (error) {
-
             console.log("Failed to fetch filtered rooms: ", error);
 
-            //Error popup
+            // Error popup
             Swal.fire({
-                icon: 'error',
-                title: 'Error!',
-                text: 'Failed to fetch filtered rooms!',
+                icon: "error",
+                title: "Error!",
+                text: "Failed to fetch filtered rooms!",
                 showConfirmButton: false,
                 timer: 3000,
             });
         }
     };
 
-
-    //View room availability
-    const handleAvailability = id => {
-        const [room_data] = rooms.filter(room => room.id === id);
+    // View room availability
+    const handleAvailability = (id) => {
+        const [room_data] = rooms.filter((room) => room.id === id);
 
         setSelectedRoom(room_data);
         setIsChecking(true);
-        
-        navigate('/roomAvailability', {state: {room_data: room_data}});
+
+        navigate("/roomAvailability", { state: { room_data: room_data } });
     };
 
-
-    //Book the room
-    const handleBooking = id => {
-        const [room] = rooms.filter(room => room.id === id);
+    // Book the room
+    const handleBooking = (id) => {
+        const [room] = rooms.filter((room) => room.id === id);
         console.log("room data:", room);
 
         setSelectedRoom(room);
-        setIsBooking(true);
-        navigate('/book', { state: { room: room } });
-    }
 
+        if (user) {
+            setIsBooking(true);
+            navigate("/book", { state: { room: room } });
+        }
+        else {
+            Swal.fire({
+                icon: "Info",
+                title: "Info.",
+                text: "You need sign in to continue.",
+                showConfirmButton: true,
+                timer: 5000,
+            });
+            navigate("/signin");
+        }
+
+    };
 
     return (
         <div className="container-view-rooms">
             <NavBarClient />
 
-            <table className="table-view-rooms">
-                <br />
-                <br />
-                <h2>Room Image & Description</h2>
-                <br></br>
-                <br></br>
-                <Search />
-                <br></br>
-                <label>Filter Rooms With Price: R</label>
-                <br></br>
-                <input
-                    type="number"
-                    className="input-search"
-                    placeholder="Filter with price range..."
-                    value={amountEntered}
-                    onChange={(e) => setAmountEntered(e.target.value)}
-                />
-                <button className="btn-filtered-rooms" onClick={handleFilteredData}>View</button>
-                <br></br>
-                <br></br>
-                <button className="btn-view-rooms" onClick={getRooms}>View All Rooms</button>
-                <br></br>
-                <br></br>
-                <div>
-                    {isFiltered ?
-                        <tbody>
-                            {data.map((room) => (
-                                <tr key={room.id}>
-                                    <td>
-                                        <img src={room.imageURL} className="img-rooms" alt="banner" />
-                                    </td>
-                                    <td>
-                                        <p>Type: {room.room_type}</p>
-                                        <p>Description: {room.room_description}</p>
+            <div style={{ marginTop: '100px', height: 'auto' }}>
+                <div className="col-12">
+                    <h2>Rooms</h2>
 
-                                        <FontAwesomeIcon icon={faBed} />
-                                        <> {room.no_of_beds}</>
+                    <Search />
 
-                                        <br></br>
-                                        <br></br>
+                    <div className="container-filter">
+                        <label>Filter with price(R)</label>
+                        <input
+                            type="number"
+                            className="input-search"
+                            placeholder="Filter price(R) range..."
+                            value={amountEntered}
+                            onChange={(e) => setAmountEntered(e.target.value)}
+                        />
 
-                                        <FontAwesomeIcon icon={faMoneyCheck} />
-                                        <> R{room.price}</>
+                        <Button className="btn-filtered-rooms" onClick={handleFilteredData}>
+                            <FontAwesomeIcon icon={faFilter} />
+                        </Button>
+                    </div>
 
-                                        <br></br>
-                                        <br></br>
+                    <div style={{ marginTop: '100px', height: '400px' }}>
+                        {rooms.length < 1 ? (
+                            <h5>Loading...</h5>
+                        ) : (
+                            <h5>Select room to check availability or reserve. </h5>
+                        )}
+                    </div>
 
-                                        <FontAwesomeIcon icon={faPeopleGroup} />
-                                        <> {room.total_occupants}</>
-
-                                        <br></br>
-                                        <br></br>
-
-                                        <>
-                                            <button className="btn-check-room" onClick={() => handleAvailability(room.id)}>Check Room Availability</button> <br />
-                                        </> <br />
-                                        <button className="btn-check-room" onClick={() => handleBooking(room.id, room.value)}>Book</button> <br />
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                        :
-                        <tbody>
-                            {rooms.map((room) => (
-                                <tr key={room.id}>
-                                    <td>
-                                        <img src={room.imageURL} className="img-rooms" alt="banner" />
-                                    </td>
-
-                                    <td>
-                                        <p>Type: {room.room_type}</p>
-                                        <p>Description: {room.room_description}</p>
-
-                                        <FontAwesomeIcon icon={faBed} />
-                                        <> {room.no_of_beds}</>
-                                        <br></br>
-                                        <br></br>
-                                        <FontAwesomeIcon icon={faMoneyCheck} />
-                                        <> R{room.price}</>
-
-                                        <br></br>
-                                        <br></br>
-                                        <FontAwesomeIcon icon={faPeopleGroup} />
-                                        <> {room.total_occupants}</>
-
-                                        <br></br>
-                                        <br></br>
-
-                                        <>
-                                            <button className="btn-check-room" onClick={() => handleAvailability(room.id)}>Check Room Availability</button> <br />
-                                        </> <br />
-                                        <button className="btn-check-room" onClick={() => handleBooking(room.id, room.value)}>Book</button> <br />
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    }
                 </div>
+            </div>
 
-            </table>
+            <div className="row container-rooms">
+                {isFiltered
+                    ? data.map((room) => (
+                        <div className="col-4 card-room-filter" key={room.id}>
+                            <Card>
+                                <Card.Img variant="top" src={room.imageURL} />
+                                <Card.Body>
+                                    <Card.Title>Type: {room.room_type}</Card.Title>
+                                    <Card.Text>Description: {room.room_description}</Card.Text>
+                                    <Card.Text>
+                                        <FontAwesomeIcon icon={faBed} /> {room.no_of_beds}
+                                    </Card.Text>
+                                    <Card.Text>
+                                        <FontAwesomeIcon icon={faMoneyCheck} /> R{room.price}
+                                    </Card.Text>
+                                    <Card.Text>
+                                        <FontAwesomeIcon icon={faPeopleGroup} /> {room.total_occupants}
+                                    </Card.Text>
+                                    <div style={{ alignContent: 'center', alignItems: 'center', justifyContent: 'center' }}>
+                                        <button
+                                            className="btn-check-room"
+                                            onClick={() => handleAvailability(room.id)}
+                                        >
+                                            Check Availability
+                                        </button>
+                                        <button
+                                            className="btn-check-room"
+                                            onClick={() => handleBooking(room.id, room.value)}
+                                        >
+                                            Reserve Room
+                                        </button>
+                                    </div>
+                                </Card.Body>
+                            </Card>
+                        </div>
+                    ))
+                    : rooms.map((room) => (
+                        <div className="col-4 card-room-view" key={room.id}>
+                            <Card>
+                                <Card.Img variant="top" src={room.imageURL} />
+                                <Card.Body>
+                                    <Card.Title>Type: {room.room_type}</Card.Title>
+                                    <Card.Text>{room.room_description}</Card.Text>
+                                    <Card.Text>
+                                        <FontAwesomeIcon icon={faBed} /> {room.no_of_beds}
+                                    </Card.Text>
+                                    <Card.Text>
+                                        <FontAwesomeIcon icon={faMoneyCheck} /> R{room.price}
+                                    </Card.Text>
+                                    <Card.Text>
+                                        <FontAwesomeIcon icon={faPeopleGroup} /> {room.total_occupants}
+                                    </Card.Text>
+                                    <div style={{ alignItems: 'center', justifyContent: 'center' }}>
+                                        <button
+                                            className="btn-check-room"
+                                            onClick={() => handleAvailability(room.id)}
+                                        >
+                                            Check Availability
+                                        </button>
+                                        <button
+                                            className="btn-check-room"
+                                            onClick={() => handleBooking(room.id, room.value)}
+                                        >
+                                            Reserve Room
+                                        </button>
+                                    </div>
+                                </Card.Body>
+                            </Card>
+                        </div>
+                    ))}
+            </div>
             <div>
                 <FooterClient />
             </div>
-        </div >
+        </div>
     );
 };
 

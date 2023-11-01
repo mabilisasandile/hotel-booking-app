@@ -71,7 +71,6 @@ const RoomEdit = (room) => {
             });
         }
        
-
     }
 
     return (
@@ -89,7 +88,6 @@ const RoomEdit = (room) => {
                         type="text"
                         className="input-edit-room"
                         value={id}
-                        onChange={(e) => setRoomType(e.target.value)}
                     />
                 </div>
                 <br></br>

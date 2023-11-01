@@ -88,8 +88,11 @@ const AboutUs = () => {
         <div>
             <NavBar />
             <div className="container-about_us">
-                <h1>Who we are?</h1>
+                <br></br>
+                <br></br>
                 <img src={aboutImage} alt="banner" className="img-about" />
+                <br></br>
+                <h1>Who we are?</h1>
                 <p className="p-about-us">Ipsum njk msmsj hhsas odjnddn nndkaoo lloasncjcahmdsid bgds asndkkdsa dmkdhdjs asdkaj <br />
                     mksk nhhjj bbbb hhhhhh kkkkk aaaaa hhhhh wwjwj whhhww odd jjjsh aujjj   iiiisdags thhhh <br />
                     the jjdisa afsghs of the  jkadjjab bkih it hjjhs agghn oljdjh ths hjkdsj.
@@ -99,7 +102,7 @@ const AboutUs = () => {
                     the jjdisa afsghs of the  jkadjjab bkih it hjjhs agghn oljdjh ths hjkdsj.
                 </p>
 
-                <button className="btn-about-us" onClick={getAbousUsInfo}>More information </button>
+                {/* <button className="btn-about-us" onClick={getAbousUsInfo}>More information </button> */}
                 <p>{moreInfo.about_us_info}</p>
                 <>
                     {isMoreInfo && (
@@ -113,12 +116,12 @@ const AboutUs = () => {
                                 onChange={(event) => setAboutUsInfo(event.target.value)} />
                             <br></br>
                             <br></br>
-                            <button className="btn-about-us" onClick={handleAddAboutUsInfo}>Save added information</button>
+                            <button className="btn-about-us" onClick={handleAddAboutUsInfo}>Save information</button>
+                            <br></br>
+                            <br></br>
                         </>
                     )}
-
                 </>
-
             </div>
             <Footer />
         </div>

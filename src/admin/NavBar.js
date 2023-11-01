@@ -1,42 +1,120 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import '../App.css';
-import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import hotelLogo from '../images/hotel-logo.jpg';
-import homeIcon from '../icons/home-icon.png';
-import SignOut from '../icons/logout-icon.png';
+import Swal from 'sweetalert2';
+import { Dropdown } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
+import { getAuth, onAuthStateChanged, signOut as firebaseSignOut } from 'firebase/auth'; // Import Firebase Auth functions
+
 
 
 const NavBar = () => {
 
     const navigate = useNavigate();
+    const [user, setUser] = useState(null); // Store user information
 
-    const GotoHomePage =()=>{
-        navigate('/home');
-    }
+    useEffect(() => {
+        const auth = getAuth();
 
-    const GoToSignInPage =()=>{
-        navigate('/SignIn');
-    }
+        // Check the user's authentication status
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // User is signed in
+                setUser(user);
+            } else {
+                // User is signed out
+                setUser(null);
+            }
+        });
+    }, []);
+
+    const signOut = () => {
+        const auth = getAuth();
+
+        firebaseSignOut(auth)
+            .then(() => {
+                // Sign-out successful, redirect to the sign-in page or any other desired location
+                navigate('/');
+            })
+            .catch((error) => {
+                // An error occurred during sign-out.
+                console.error('Sign out error: ', error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error!',
+                    text: 'Something went wrong.',
+                    showConfirmButton: false,
+                    timer: 3000,
+                });
+            });
+    };
+
+
 
     return (
-            <div className='nav-container'>
-                <nav>
-                <span> 
-                <img src={hotelLogo} className="logo-image" alt="banner" /> 
-                <img src={homeIcon} className="home-icon" onClick={GotoHomePage} alt="banner" />
-                </span>
-                    <Link to="/Rooms" className='nav-items'><b>View Rooms</b></Link>
-                    <Link to="/NewRoom" className='nav-items'><b>Add New Room</b></Link>
-                    <Link to="/Bookings" className='nav-items'><b>Bookings</b></Link>
-                    <Link to="/Services" className='nav-items'><b>Special Offers</b></Link>
-                    <Link to="/AboutUs" className='nav-items'><b>About Us</b></Link>
-                    <Link to="/BasicInfo" className='nav-items'><b>Information</b></Link>
-
-                    <img src={SignOut} className="logout-icon" onClick={GoToSignInPage} alt="banner" />
-                </nav>
-                
+        <nav className="navbar navbar-expand-lg my-navbar">
+            <a className="navbar-brand" href="#">
+                BlueHaven
+            </a>
+            <button
+                className="navbar-toggler"
+                type="button"
+                data-toggle="collapse"
+                data-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+            >
+                <span className="navbar-toggler-icon"></span>
+            </button>
+            <div className="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
+                <ul className="navbar-nav">
+                    <li className="nav-item active">
+                        <a className="nav-link" href="/home">
+                            HOME
+                        </a>
+                    </li>
+                    <li className="nav-item">
+                        <a className="nav-link" href="/Rooms">
+                            ROOMS
+                        </a>
+                    </li>
+                    <li className="nav-item">
+                        <a className="nav-link" href="/Bookings">
+                            BOOKINGS
+                        </a>
+                    </li>
+                    <li className="nav-item">
+                        <a className="nav-link" href="/gallerypage">
+                            GALLERY
+                        </a>
+                    </li>
+                    <Dropdown>
+                        <Dropdown.Toggle
+                            variant="primary"
+                            id="dropdown-basic"
+                            className="nav-dropdown"
+                        >
+                            MORE
+                        </Dropdown.Toggle>
+                        <Dropdown.Menu>
+                            <Dropdown.Item href="/NewRoom">ADD ROOM</Dropdown.Item>
+                            <Dropdown.Item href="/AboutUs">ABOUT</Dropdown.Item>
+                            <Dropdown.Item href="/Services">SERVICE</Dropdown.Item>
+                            <Dropdown.Item href="/BasicInfo">SETTINGS</Dropdown.Item>
+                            <Dropdown.Item href="/contact">CONTACT</Dropdown.Item>
+                            {user ? (
+                                // Render "Sign Out" item if user is signed in
+                                <Dropdown.Item onClick={signOut}>SIGN OUT</Dropdown.Item>
+                            ) : (
+                                // Render "Sign In" item if user is not signed in
+                                <Dropdown.Item href="/login">SIGN IN</Dropdown.Item>
+                            )}
+                        </Dropdown.Menu>
+                    </Dropdown>
+                </ul>
             </div>
+        </nav>
     )
 }
 export default NavBar;

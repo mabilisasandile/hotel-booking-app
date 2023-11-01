@@ -14,18 +14,11 @@ const Home = () => {
                 <NavBar />
                 <Heroes />
             </div>
+
             <div className="container-body">
-                <table>
-                    <tr>
-                        <td>
-                            <Map />
-                        </td>
-                        <td>
-                            <img src={homeImage} alt="banner" className="img-home" />
-                        </td>
-                    </tr>
-                </table>
+            <Map />
             </div>
+            
             <div>
                 <Footer />
             </div>

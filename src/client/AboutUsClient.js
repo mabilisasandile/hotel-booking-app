@@ -20,38 +20,7 @@ const AboutUs = () => {
     const [moreInfo, setMoreInfo] = useState([]);
     const [isMoreInfo, setIsMoreInfo] = useState(false);
 
-    const handleAddAboutUsInfo = (async (e) => {
-        e.preventDefault()
-
-        try {
-            const docRef = await addDoc(collection(db, "basicInformation"), {
-                company_name: company_name,
-                about_us_info: about_us_info,
-            });
-
-            console.log(docRef);
-            //Success popup
-            Swal.fire({
-                icon: 'success',
-                title: 'Success!',
-                text: 'Successfully added info.',
-                showConfirmButton: false,
-                timer: 3000,
-            });
-
-        } catch (error) {
-            console.error('Error adding document: ', error);
-            //Error popup
-            Swal.fire({
-                icon: 'error',
-                title: 'Error!',
-                text: 'Failed to add info.',
-                showConfirmButton: false,
-                timer: 3000,
-            });
-        }
-    })
-
+    
     useEffect(() => {
         getAbousUsInfo();
     }, []);
@@ -99,8 +68,8 @@ const AboutUs = () => {
                     the jjdisa afsghs of the  jkadjjab bkih it hjjhs agghn oljdjh ths hjkdsj.
                 </p>
 
-                <button className="btn-about-us" onClick={getAbousUsInfo}>More information </button>
-                <p>{moreInfo.about_us_info}</p>
+                {/* <button className="btn-about-us" onClick={getAbousUsInfo}>More information </button>
+                <p>{moreInfo.about_us_info}</p> */}
                 
             </div>
             <FooterClient />

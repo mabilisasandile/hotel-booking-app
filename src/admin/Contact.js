@@ -1,14 +1,15 @@
 import React from "react";
 import '../App.css';
-import NavBarClient from "./NavBarClient";
-import MapClient from './MapClient';
-import FooterClient from './FooterClient';
+import NavBar from "./NavBar";
+import Footer from "./Footer";
+import Map from "./Map";
 
-const ContactUs = () => {
+
+const Contact = () => {
 
     return (
         <div>
-            <NavBarClient />
+            <NavBar />
                 <div style={{ alignItems:'center', justifyContent:'center', height: '400px'}}>
                     <br></br>
                     <br></br>
@@ -23,14 +24,14 @@ const ContactUs = () => {
                 </div>
             
                 <div>
-                    <MapClient />
+                    <Map />
                 </div>
             
-                <FooterClient />
+                <Footer />
             
         </div>
 
     );
 }
 
-export default ContactUs;
+export default Contact;

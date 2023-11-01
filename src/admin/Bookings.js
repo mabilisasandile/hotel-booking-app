@@ -6,11 +6,14 @@ import EditBooking from "./EditBooking";
 import { useNavigate } from "react-router-dom";
 import { collection, getDocs, doc, deleteDoc } from "firebase/firestore";
 import { db } from "../config/firebase";
-
-//Import the 'Swal.fire' function to display alerts
 import Swal from "sweetalert2";
+import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
-const Rooms = () => {
+const Bookings = () => {
     const [bookings, setBookings] = useState([]);
 
     const navigate = useNavigate();
@@ -24,7 +27,8 @@ const Rooms = () => {
         try {
             const querySnapshot = await getDocs(collection(db, "bookings"));
 
-            const bookings = querySnapshot.docs.map((doc) => ({id: doc.id,
+            const bookings = querySnapshot.docs.map((doc) => ({
+                id: doc.id,
                 ...doc.data()
             }));
 
@@ -35,24 +39,15 @@ const Rooms = () => {
         }
     };
 
-    //Go to view and edit room page
     const handleEdit = (id) => {
-        console.log("View ID:", id);
         const [booking_info] = bookings.filter(booking => booking.id === id);
 
-        console.log("Selected booking info:", booking_info);
-        
         const booking_id = booking_info.id;
-        console.log("Booking_id: ", booking_id);
-        
-        navigate('/EditBooking', {state: {booking_info: booking_info}} );
 
+        navigate('/EditBooking', { state: { booking_info: booking_info } });
     };
-     
-    //Cancel a booking
-    const handleDelete = id => {
 
-        //Warning popup
+    const handleDelete = id => {
         Swal.fire({
             icon: 'warning',
             title: 'Are you sure?',
@@ -62,69 +57,99 @@ const Rooms = () => {
             cancelButtonText: 'No, cancel!',
         }).then(result => {
             if (result.value) {
-                //Get the booking to be deleted
                 booking = bookings.filter(room => booking.id === id);
+                deleteDoc(doc(db, "bookings", id)).then(() => {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Deleted!',
+                        text: 'Data has been deleted.',
+                        showConfirmButton: false,
+                        timer: 3000,
+                    });
 
-                //Delete booking from the database (firestore)
-                deleteDoc(doc(db, "bookings", id));
-
-                //Success popup
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Deleted!',
-                    text: 'Data has been deleted.',
-                    showConfirmButton: false,
-                    timer: 3000,
+                    const bookingsCopy = bookings.filter(room => booking.id !== id);
+                    setBookings(bookingsCopy);
+                    getBookings();
                 });
-
-                const bookingsCopy = bookings.filter(room => booking.id !== id);
-                setBookings(bookingsCopy);    //Update the state with the new list
             }
         });
     }
 
     return (
-        <div className="container-view-rooms">
-            
+        <div className="container-view-bookings">
+
             <NavBar />
-            
-            <br />
-            <button onClick={getBookings}>Click To View Our Booings</button>
-            <br />
-            <table className="table-view-bookings">
-            
-                <thead>
-                    <tr>
-                    <h2>Bookings: </h2>
-                    </tr>
-                </thead>
-                <tbody>
+            <div>
+                <br></br>
+                <br></br>
+                {bookings.length < 1 ? (
+                    <div style={{ marginTop: '40px', height: '400px' }}>
+                        <h5 style={{ color: 'white' }}>Loading...</h5>
+                    </div>
+                ) : (
+                    <h3 style={{ color: 'white' }}>Clients and Rooms Reserved</h3>
+                )}
+
+            </div>
+            <Container>
+                <Row>
                     {bookings.map((booking) => (
-                        <tr key={booking.id}>
-                            <td>
-                                <img src={booking.imageURL} className="img-rooms" alt="banner" />
-                                <p>Room ID: {booking.room_id}</p>
-                                <p>Type: {booking.room_type}</p>
-                            </td>
-                            <td>
-                                <p>Booking Code: {booking.id}</p>
-                                <p>Client Name(s): {booking.fName} {booking.lName}</p>
-                                <p>E-mail: {booking.email}</p>
-                                <p>Number of Guests: {booking.num_of_guests}</p>
-                                <p>Arrival Date & Time: {booking.arrivalDate} {booking.arrivalTime}</p>
-                                <p>Departure Date: {booking.departureDate}</p>
-                                <p>Pick Up? : {booking.pickUpOption}</p>
-                                <p>Any Special Request(s)? : {booking.specialRequests}</p>
-                                <button className="btn-edit" onClick={() => handleEdit(booking.id)}>Update Booking info</button> <br></br> <br></br>
-                                <button className="btn-delete" onClick={() => handleDelete(booking.id, booking.value)}>Delete Booking</button> <br />
-                            </td>                           
-                        </tr>
-                    ))}                   
-                </tbody>
-            </table>
+                        <Col key={booking.id} xs={12} sm={6} md={4}>
+                            <Card className="card-room-view">
+                                <Card.Body>
+                                    <Card.Text>
+                                        Arrival Date & Time: {booking.arrivalDate} {booking.arrivalTime}
+                                    </Card.Text>
+                                    <Card.Text>
+                                        Room ID: {booking.room_id}
+                                    </Card.Text>
+                                    <Card.Title>
+                                        {booking.room_type}
+                                    </Card.Title>
+                                    <Card.Text>
+                                        Booking Code: {booking.id}
+                                    </Card.Text>
+                                    <Card.Text>
+                                        Client Name(s): {booking.fName} {booking.lName}
+                                    </Card.Text>
+                                    <Card.Text>
+                                        E-mail: {booking.email}
+                                    </Card.Text>
+                                    <Card.Text>
+                                        Number of Guests: {booking.num_of_guests}
+                                    </Card.Text>
+                                    <Card.Text>
+                                        Departure Date: {booking.departureDate}
+                                    </Card.Text>
+                                    <Card.Text>
+                                        Pick Up? : {booking.pickUpOption}
+                                    </Card.Text>
+                                    <Card.Text>
+                                        Request(s)? : {booking.specialRequests}
+                                    </Card.Text>
+                                    <Button
+                                        variant="primary"
+                                        className="btn-edit"
+                                        onClick={() => handleEdit(booking.id)}
+                                    >
+                                        Edit
+                                    </Button>
+                                    <Button
+                                        variant="danger"
+                                        className="btn-delete"
+                                        onClick={() => handleDelete(booking.id, booking.value)}
+                                    >
+                                        Delete
+                                    </Button>
+                                </Card.Body>
+                            </Card>
+                        </Col>
+                    ))}
+                </Row>
+            </Container>
             <Footer />
         </div>
     );
 };
 
-export default Rooms;
+export default Bookings;

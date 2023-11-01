@@ -5,6 +5,7 @@ import HeroesClient from "./HeroesClient";
 import homeImage from '../images/home-image.jpg';
 import MapClient from './MapClient';
 import FooterClient from './FooterClient';
+import HomeScreenInfo from "../components/HomeScreenInfo";
 
 const HomeClient = () => {
 
@@ -13,20 +14,14 @@ const HomeClient = () => {
             <NavBarClient />
             <HeroesClient />
             <div className="container-body">
-            <table>
-                    <tr>
-                        <td>
-                            <MapClient />
-                        </td>
-                        <td>
-                            <img src={homeImage} alt="banner" className="img-home" />
-                        </td>
-                    </tr>
-                </table>
+                <div className="half-width">
+                    <MapClient />
+                </div>
+                <div className="half-width">
+                    <HomeScreenInfo />
+                </div>
             </div>
-            <div>
-                <FooterClient />
-            </div>
+            <FooterClient />
         </div>
 
     );

@@ -5,14 +5,17 @@ import { useNavigate } from "react-router-dom";
 import { collection, getDocs, doc, deleteDoc } from "firebase/firestore";
 import { db } from "../config/firebase";
 import RoomEdit from "./RoomEdit";
-
-//Import the 'Swal.fire' function to display alerts
+import Footer from "./Footer";
 import Swal from "sweetalert2";
+import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+
 
 const Rooms = () => {
-
     const navigate = useNavigate();
-
     const [rooms, setRooms] = useState([]);
     const [selectedRoom, setSelectedRoom] = useState([]);
     const [isEditing, setIsEditing] = useState(false);
@@ -31,33 +34,19 @@ const Rooms = () => {
             }));
 
             setRooms(rooms);
-            console.log("Rooms data:", rooms);
         } catch (error) {
             console.log("Failed to fetch data", error);
         }
     };
 
-    //Go to view and edit room page
     const handleEdit = async (id) => {
-        console.log("View ID:", id);
-        const [room] = rooms.filter(room => room.id === id);
-
+        const [room] = rooms.filter((room) => room.id === id);
         setSelectedRoom(room);
-
         setIsEditing(true);
-    
-        navigate('/roomedit', {state: {room: room}} );
+        navigate('/roomedit', { state: { room: room } });
     };
 
-    useEffect(() => {
-
-        console.log("Handle retrieved data:", selectedRoom);
-    }, [selectedRoom]);
-
-    //Delete a room
-    const handleDelete = id => {
-
-        //Warning popup
+    const handleDelete = (id) => {
         Swal.fire({
             icon: 'warning',
             title: 'Are you sure?',
@@ -65,68 +54,90 @@ const Rooms = () => {
             showCancelButton: true,
             confirmButtonText: 'Yes, delete it!',
             cancelButtonText: 'No, cancel!',
-        }).then(result => {
+        }).then((result) => {
             if (result.value) {
-                //Get the room to be deleted
-                const [room] = rooms.filter(room => room.id === id);
+                deleteDoc(doc(db, "rooms", id)).then(() => {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Deleted!',
+                        text: 'Data has been deleted.',
+                        showConfirmButton: false,
+                        timer: 3000,
+                    });
 
-                //Delete room from the database (firestore)
-                deleteDoc(doc(db, "rooms", id));
-
-                //Success popup
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Deleted!',
-                    text: 'Data has been deleted.',
-                    showConfirmButton: false,
-                    timer: 3000,
+                    const roomsCopy = rooms.filter((room) => room.id !== id);
+                    setRooms(roomsCopy);
                 });
-
-                const roomsCopy = rooms.filter(room => room.id !== id);
-                setRooms(roomsCopy);    //Update the state with the new list
             }
         });
-    }
+    };
 
     return (
         <div className="container-view-rooms">
-            
             <NavBar />
-            <h1>Rooms Page</h1>
-            <br />
+            <div style={{ marginTop: '50px', minHeight: '500px' }}>
 
-            <button className="btn-view-rooms" onClick={getRooms}>View rooms</button>
-            
-            <br />
-            
-            <table className="table-view-rooms">
-                <thead>
-                    <tr>
-                        <th>Image & Description for each room availabe</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {rooms.map((room) => (
-                        <tr key={room.id}>
-                            <td>
-                                <img src={room.imageURL} className="img-rooms" alt="banner" />
-                            </td>
-                            <td>
-                                <p>Room ID: {room.id}</p>
-                                <p>Type: {room.room_type}</p>
-                                <p>Room Description: {room.room_description}</p>
-                                <p>No. of beds: {room.no_of_beds}</p>
-                                <p>Price: R{room.price}</p>
-                                <p>Max occupants: {room.total_occupants}</p>
-                                <p>Image URL: {room.imageURL}</p>
-                                <button className="btn-edit" onClick={() => handleEdit(room.id)}>Edit</button> <br></br> <br></br>
-                                <button className="btn-delete" onClick={() => handleDelete(room.id, room.value)}>Delete</button> <br />
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+                <div>
+                    <h1>Rooms Page</h1>
+                    <br />
+                    <br />
+                    {rooms.length < 1 ? (
+                        <h5>Loading...</h5>
+                    ) : (
+                        <h5>You can make necessary changes here. </h5>
+                    )}
+                </div>
 
+                <Container>
+                    <Row>
+                        {rooms.map((room) => (
+                            <Col key={room.id} xs={12} sm={6} md={4}>
+                                <Card className="card-room-view">
+                                    <Card.Img variant="top" src={room.imageURL} className="img-rooms" alt="banner" />
+                                    <Card.Body>
+                                        <Card.Text>
+                                            Room ID: {room.id}
+                                        </Card.Text>
+                                        <Card.Title>
+                                            {room.room_type}
+                                        </Card.Title>
+                                        <Card.Text>
+                                            Room Description: {room.room_description}
+                                        </Card.Text>
+                                        <Card.Text>
+                                            No. of beds: {room.no_of_beds}
+                                        </Card.Text>
+                                        <Card.Text>
+                                            Price: R{room.price}
+                                        </Card.Text>
+                                        <Card.Text>
+                                            Max occupants: {room.total_occupants}
+                                        </Card.Text>
+                                        <Button
+                                            variant="primary"
+                                            className="btn-edit"
+                                            onClick={() => handleEdit(room.id)}
+                                        >
+                                            Edit
+                                        </Button>
+                                        <Button
+                                            variant="danger"
+                                            className="btn-delete"
+                                            onClick={() => handleDelete(room.id, room.value)}
+                                        >
+                                            Delete
+                                        </Button>
+                                    </Card.Body>
+                                </Card>
+                            </Col>
+                        ))}
+                    </Row>
+                </Container>
+            </div>
+
+            <div>
+                <Footer />
+            </div>
         </div>
     );
 };

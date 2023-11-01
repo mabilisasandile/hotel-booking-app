@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import '../App.css';
 import { useState } from "react";
 import NavBar from "./NavBar";
+import Footer from "./Footer";
 import { db } from "../config/firebase";
 import { getDownloadURL } from "firebase/storage";
 import { collection, addDoc } from "firebase/firestore";
@@ -39,7 +40,7 @@ const NewRoom = () => {
                         title: 'Uploaded!',
                         text: 'Image has been uploaded.',
                         showConfirmButton: false,
-                        timer: 3000,
+                        timer: 5000,
                     });
                 })
             })
@@ -49,7 +50,7 @@ const NewRoom = () => {
                 title: 'Error!',
                 text: 'Error uploading image!',
                 showConfirmButton: false,
-                timer: 3000,
+                timer: 5000,
             });
         }
 
@@ -76,7 +77,7 @@ const NewRoom = () => {
                 title: 'Saved!',
                 text: 'Successfully added new room.',
                 showConfirmButton: false,
-                timer: 1500,
+                timer: 5000,
             });
 
         } catch (error) {
@@ -90,90 +91,74 @@ const NewRoom = () => {
         <div>
             <NavBar />
             <div className="container-add-room">
+                <br></br>
                 <div className="form-add-room">
-                <h3>
-                    Add a new room here:
-                </h3>
-                <br></br>
-                <br></br>
+                    <br></br>
+                    <h3>
+                        Add a new room.
+                    </h3>
+                    <br></br>
+                    <br></br>
 
-                <select className="select-add-room" value={room_type} onChange={(e) => setRoomType(e.target.value)}>
-                    <option value="">Select room type..</option>
-                    <option value="double">Double</option>
-                    <option value="triple">Triple</option>
-                    <option value="quad">Quad</option>
-                    <option value="mix">Mix</option>
-                    <option value="queen">Queen</option>
-                    <option value="king" >King</option>
-                </select>
-                <br></br>
-                <br></br>
-                <select className="select-add-room" value={room_description} onChange={(e) => setRoomDescription(e.target.value)}>
-                    <option value="">Select room description</option>
-                    <option value="Standard Room (1 to 2 People)">Double - Standard Room (1 to 2 People)</option>
-                    <option value="Private Room (1 to 3">Triple - Private Room (1 to 3)</option>
-                    <option value="Family Room (1 to 4)">Quad - Family Room (1 to 4)</option>
-                    <option value="Mix Dorm Room (6 People)">Mix - Mix Dorm Room (6 People)</option>
-                    <option value="Female Dorm Room (6 people)">Female - Dorm Room (6 people)</option>
-                    <option value="Male Dorm Room (6 people)" >King - Male Dorm Room (6 people)</option>
-                </select>
-                <br></br>
-                <br></br>
-                <input
-                    type="number"
-                    className="input-add-room "
-                    placeholder="Number of beds"
-                    onChange={(event) => setNoOfBeds(event.target.value)} />
-                <br></br>
-                <br></br>
-                <input
-                    type="number"
-                    className="input-add-room "
-                    placeholder="Price"
-                    onChange={(event) => setRoomPrice(event.target.value)} />
-                <br></br>
-                <br></br>
-                <input
-                    type="text"
-                    className="input-add-room "
-                    placeholder="Number of occupants"
-                    onChange={(event) => setTotalOccupants(event.target.value)} />
-                <br></br>
-                <br></br>
-                <img src={imageURL} className="img-new-room" alt="banner" /> <br></br>
-                <label>Insert Image: </label>
-                <input
-                    type="file"
-                    onChange={(event) => setImageUpload(event.target.files[0])} />
-                <button onClick={handleUpload}>Upload</button>
-                <br></br>
-                <br></br>
-                <button className="btn-add-room" onClick={handleNewRoom}>Save new room</button>
-                <br></br>
-                <div></div>
+                    <select className="select-add-room" value={room_type} onChange={(e) => setRoomType(e.target.value)}>
+                        <option value="">Select room type..</option>
+                        <option value="double">Double</option>
+                        <option value="triple">Triple</option>
+                        <option value="quad">Quad</option>
+                        <option value="mix">Mix</option>
+                        <option value="queen">Queen</option>
+                        <option value="king" >King</option>
+                    </select>
+                    <br></br>
+                    <br></br>
+                    <select className="select-add-room" value={room_description} onChange={(e) => setRoomDescription(e.target.value)}>
+                        <option value="">Select room description</option>
+                        <option value="Standard Room (1 to 2 People)">Double - Standard Room (1 to 2 People)</option>
+                        <option value="Private Room (1 to 3">Triple - Private Room (1 to 3)</option>
+                        <option value="Family Room (1 to 4)">Quad - Family Room (1 to 4)</option>
+                        <option value="Mix Dorm Room (6 People)">Mix - Mix Dorm Room (6 People)</option>
+                        <option value="Female Dorm Room (6 people)">Female - Dorm Room (6 people)</option>
+                        <option value="Male Dorm Room (6 people)" >King - Male Dorm Room (6 people)</option>
+                    </select>
+                    <br></br>
+                    <br></br>
+                    <input
+                        type="number"
+                        className="input-add-room "
+                        placeholder="Number of beds"
+                        onChange={(event) => setNoOfBeds(event.target.value)} />
+                    <br></br>
+                    <br></br>
+                    <input
+                        type="number"
+                        className="input-add-room "
+                        placeholder="Price"
+                        onChange={(event) => setRoomPrice(event.target.value)} />
+                    <br></br>
+                    <br></br>
+                    <input
+                        type="text"
+                        className="input-add-room "
+                        placeholder="Number of occupants"
+                        onChange={(event) => setTotalOccupants(event.target.value)} />
+                    <br></br>
+                    <br></br>
+                    <img src={imageURL} className="img-new-room" alt="banner" /> <br></br>
+                    <label>Insert Image: </label>
+                    <input
+                        type="file"
+                        onChange={(event) => setImageUpload(event.target.files[0])} />
+                    <button onClick={handleUpload}>Upload</button>
+                    <br></br>
+                    <br></br>
+                    <button className="btn-add-room" onClick={handleNewRoom}>Save new room</button>
+                    <br></br>
+                    <div></div>
                 </div>
-                
             </div>
-            <footer>
-                <div className="container-footer">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Address</th>
-                                <th>Legal</th>
-                                <th>Essentials</th>
-                                <th>Social media</th>
-                            </tr>
-                            <tr>
-                                <td>Gauteng</td>
-                                <td>Copyright</td>
-                                <td>Email</td>
-                                <td>Twitter</td>
-                            </tr>
-                        </thead>
-                    </table>
-                </div>
-            </footer>
+            <div>
+                <Footer />
+            </div>
 
 
         </div>
