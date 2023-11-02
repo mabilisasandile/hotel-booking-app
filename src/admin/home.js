@@ -5,6 +5,7 @@ import Heroes from "./Heroes";
 import Footer from "./Footer";
 import homeImage from '../images/home-image.jpg';
 import Map from "./Map";
+import HomeScreenInfo from "../components/HomeScreenInfo";
 
 const Home = () => {
 
@@ -16,7 +17,12 @@ const Home = () => {
             </div>
 
             <div className="container-body">
-            <Map />
+                <div className="half-width">
+                    <Map />
+                </div>
+                <div className="half-width">
+                    <HomeScreenInfo />
+                </div>
             </div>
             
             <div>

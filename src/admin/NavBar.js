@@ -103,6 +103,7 @@ const NavBar = () => {
                             <Dropdown.Item href="/Services">SERVICE</Dropdown.Item>
                             <Dropdown.Item href="/BasicInfo">SETTINGS</Dropdown.Item>
                             <Dropdown.Item href="/contact">CONTACT</Dropdown.Item>
+                            <Dropdown.Item href="/regist">ADD ADMIN</Dropdown.Item>
                             {user ? (
                                 // Render "Sign Out" item if user is signed in
                                 <Dropdown.Item onClick={signOut}>SIGN OUT</Dropdown.Item>
