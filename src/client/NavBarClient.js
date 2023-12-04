@@ -82,12 +82,12 @@ const NavBarClient = () => {
                         </a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="/AboutUsClient">
+                        <a className="nav-link" href="/aboutusclient">
                             ABOUT US
                         </a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="/AboutUsClient">
+                        <a className="nav-link" href="/contactus">
                             CONTACT US
                         </a>
                     </li>
