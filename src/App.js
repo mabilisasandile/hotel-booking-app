@@ -5,6 +5,13 @@ import 'jquery';
 import 'popper.js';
 import 'bootstrap/dist/js/bootstrap';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+
+import React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
+import 'jquery';
+import 'popper.js';
+import 'bootstrap/dist/js/bootstrap';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
 import { UserAuthContextProvider } from './components/AuthProvider';
 import PrivateRoutes from '../src/components/PrivateRoutes';
@@ -42,6 +49,7 @@ import GalleryClient from './client/GalleryClient';
 
 
 function App() {
+
 
   return (
 
